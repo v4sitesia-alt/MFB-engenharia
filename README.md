@@ -1,5 +1,7 @@
 # MFB Engenharia — Landing Page
 
+**No ar:** https://mfb-engenharia.vercel.app
+
 Reprodução fiel da landing page da MFB Engenharia a partir do layout original
 (artboard de 1920 px exportado em PDF).
 
@@ -117,6 +119,39 @@ formulário, ausência de rolagem horizontal e ausência de erros de JavaScript.
 
 Responsivo em 3 breakpoints: 1360 px (container fluido), 1024 px (menu hambúrguer,
 grids de 2 colunas, hero empilhado) e 720 px (coluna única).
+
+---
+
+## Deploy
+
+Hospedado na Vercel, projeto `v4-sites-ais-projects/mfb-engenharia`. Site estático
+servido a partir da raiz, sem etapa de build.
+
+O `vercel.json` define:
+
+| Recurso | Cache-Control |
+|---|---|
+| HTML | `max-age=0, must-revalidate` |
+| `assets/fonts/` | `max-age=31536000, immutable` |
+| `assets/img/` | `max-age=604800, stale-while-revalidate=86400` |
+| `assets/css/`, `assets/js/` | `max-age=3600, must-revalidate` |
+
+CSS e JS ficam com cache curto de propósito: os arquivos não têm hash no nome, então
+cache longo impediria que uma correção chegasse aos visitantes.
+
+Também aplica `Strict-Transport-Security`, `X-Content-Type-Options`, `X-Frame-Options`,
+`Referrer-Policy` e `Permissions-Policy` em todas as respostas.
+
+`cleanUrls` está ligado: `/index.html` responde 308 para `/`.
+
+### Publicar uma nova versão
+
+```bash
+vercel --prod          # a partir da raiz do repositório
+```
+
+Vale conectar o repositório em vercel.com para ter deploy automático a cada push
+e preview por pull request.
 
 ---
 
