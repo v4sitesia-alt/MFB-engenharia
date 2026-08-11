@@ -243,8 +243,12 @@ ul,ol{padding:0;list-style:none}
   position:absolute;inset:0;
   background:linear-gradient(100deg,#fff 6%,rgba(255,255,255,.95) 24%,rgba(255,255,255,.45) 44%,rgba(255,255,255,0) 62%);
 }
-.hero__inner{position:relative;z-index:2;height:100%}
-.hero__copy{padding-top:164px;max-width:780px}
+/* O texto é centralizado no espaço abaixo do header (a altura do header já sai
+   do .hero via padding-top), em vez de posicionado por um recuo fixo. */
+.hero__inner{position:relative;z-index:2;height:100%;display:flex;align-items:center}
+/* width:100% mantém o comportamento de bloco: sem isso o item flex passaria a
+   ter a largura do conteúdo, mudando a quebra do texto. */
+.hero__copy{width:100%;max-width:780px}
 .hero__title{
   margin-top:9px;
   font-size:72px;line-height:68.5px;font-weight:700;letter-spacing:var(--tracking);
@@ -476,9 +480,18 @@ ul,ol{padding:0;list-style:none}
   position:absolute;left:-3.28%;top:-19.5%;width:82.1%;height:120.8%;
   object-fit:cover;object-position:center;transform:scaleX(-1);
 }
+/* O texto começa em 18% da largura e antes caía justo na janela mais clara do
+   gradiente (42%), onde parágrafo e eyebrow reprovavam em contraste. A janela
+   clara foi deslocada para os 6% iniciais — à esquerda do texto, preservando a
+   figura — e o escurecimento passa a subir a partir dali. */
 .contact__bg::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,rgba(0,0,0,.58) 0%,rgba(0,0,0,.42) 28%,rgba(0,0,0,.88) 60%,#000 76%);
+  background:linear-gradient(90deg,
+    rgba(0,0,0,.62)  0%,
+    rgba(0,0,0,.60)  6%,
+    rgba(0,0,0,.82) 20%,
+    rgba(0,0,0,.93) 48%,
+    #000            64%);
 }
 .contact__inner{
   position:relative;z-index:2;display:grid;
@@ -646,7 +659,7 @@ ul,ol{padding:0;list-style:none}
   .steps{margin-top:64px}
   .contact__inner{grid-template-columns:1fr;gap:48px;padding-block:88px}
   .contact__bg img{width:100%}
-  .contact__bg::after{background:linear-gradient(180deg,rgba(0,0,0,.6),rgba(0,0,0,.88))}
+  .contact__bg::after{background:linear-gradient(180deg,rgba(0,0,0,.72),rgba(0,0,0,.92))}
   .formcard{max-width:592px}
 
   .footer__grid{grid-template-columns:1fr 1fr;gap:48px}

@@ -151,6 +151,23 @@ formulário, ausência de rolagem horizontal e ausência de erros de JavaScript.
 Responsivo em 3 breakpoints: 1360 px (container fluido), 1024 px (menu hambúrguer,
 grids de 2 colunas, hero empilhado) e 720 px (coluna única).
 
+### Contraste do texto sobre foto (seção Contato)
+
+Medido nos pixels de glifo renderizados, não por estimativa: a página é capturada
+com e sem cada bloco de texto, o diff isola o traço das letras e a luminância do
+fundo é lida exatamente nessas posições. Valores no percentil 95 (quase pior caso):
+
+| Texto | Antes | Depois | Exigido |
+|---|---|---|---|
+| Título (branco, 60 px) | 3,69:1 | 16,91:1 | 3:1 |
+| Parágrafo (`#D8D8D8`, 18 px) | 3,39:1 ❌ | 12,39:1 | 4,5:1 |
+| Eyebrow (laranja, 12 px) | 3,69:1 ❌ | 5,90:1 | 4,5:1 |
+
+O parágrafo e o eyebrow reprovavam em WCAG AA. O gradiente tinha sua janela mais
+clara em 28% da largura, exatamente onde o texto começa; ela foi deslocada para os
+6% iniciais — à esquerda do texto, o que preserva a figura da foto — e o
+escurecimento passa a subir a partir dali.
+
 ---
 
 ## Deploy
