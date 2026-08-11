@@ -1,0 +1,5 @@
+# não precisam ir para o deploy
+README.md
+_analysis/
+.gitignore
+.git/
