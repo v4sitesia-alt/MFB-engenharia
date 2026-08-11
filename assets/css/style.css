@@ -179,7 +179,9 @@ ul,ol{padding:0;list-style:none}
 }
 .ticklist .ico{width:19px;height:19px;color:var(--orange);stroke-width:1.9}
 .ticklist--dia{gap:0}
-.ticklist--dia li{gap:0;font-weight:400;font-size:16px;color:var(--text)}
+/* O losango ocupa os 52px inteiros do .dia-tick — a ponta direita encosta na
+   borda do container. Sem um gap, o texto começa colado nessa ponta. */
+.ticklist--dia li{gap:10px;font-weight:400;font-size:16px;color:var(--text)}
 
 /* ------------------------------- NÚMEROS -------------------------------- */
 .ghost-num{

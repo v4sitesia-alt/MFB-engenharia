@@ -83,6 +83,11 @@ recompostas. Detalhes que exigiram atenção:
   calculada a partir da posição de cada imagem no PDF.
 - **Logo** — usa-se o arquivo original do PDF (400 × 220 px com transparência).
   Exibido a 115 px de largura, o que dá 3,5× de densidade — mais nítido que 2× retina.
+- **Favicon** — arquivos próprios em 16, 32 e 48 px, mais um `apple-touch-icon` de
+  180 px. O logo tem 2,18:1 e o navegador espremia isso num quadrado, distorcendo
+  a marca; agora ela é encaixada sem esticar, com o wordmark "ENGENHARIA" removido
+  por ser ilegível nesses tamanhos. O ícone da Apple leva fundo branco e mais
+  folga, porque o iOS pinta transparência de preto e arredonda os cantos.
 - **Ícones** — refeitos como SVG inline (traçado, padrão Lucide) em vez dos JPEGs
   rasterizados do PDF, ficando nítidos em qualquer resolução e permitindo herdar cor.
 
