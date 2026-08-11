@@ -233,9 +233,16 @@ ul,ol{padding:0;list-style:none}
 .header__burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
 /* ================================= HERO ================================= */
+/* Os 1070px do layout são mais altos que a área visível de um notebook, o que
+   empurrava o "centro" do hero para baixo da dobra. A altura passa a ser o menor
+   valor entre o design e a viewport, e é min-height para o conteúdo nunca ficar
+   espremido em telas baixas. svh evita o salto causado pela barra do navegador
+   em mobile; a linha com vh fica de fallback. */
 .hero{
-  position:relative;height:1070px;padding-top:65px;overflow:hidden;
+  position:relative;display:flex;padding-top:65px;overflow:hidden;
   background:var(--white);
+  min-height:min(1070px,100vh);
+  min-height:min(1070px,100svh);
 }
 .hero__visual{position:absolute;inset:0 0 0 auto;width:70%;z-index:0}
 .hero__visual img{width:100%;height:100%;object-fit:cover;object-position:left center}
@@ -245,7 +252,7 @@ ul,ol{padding:0;list-style:none}
 }
 /* O texto é centralizado no espaço abaixo do header (a altura do header já sai
    do .hero via padding-top), em vez de posicionado por um recuo fixo. */
-.hero__inner{position:relative;z-index:2;height:100%;display:flex;align-items:center}
+.hero__inner{position:relative;z-index:2;display:flex;align-items:center}
 /* width:100% mantém o comportamento de bloco: sem isso o item flex passaria a
    ter a largura do conteúdo, mudando a quebra do texto. */
 .hero__copy{width:100%;max-width:780px}
@@ -640,8 +647,9 @@ ul,ol{padding:0;list-style:none}
   .grid--4{grid-template-columns:repeat(2,1fr)}
   .grid--3{grid-template-columns:repeat(2,1fr)}
 
-  .hero{padding-bottom:0}
-  .hero__inner{height:auto}
+  /* Aqui o hero empilha: o .hero__visual sai do absoluto e volta ao fluxo, então
+     o container precisa deixar de ser flex e soltar a altura mínima. */
+  .hero{display:block;min-height:0;padding-bottom:0}
   .hero__copy{padding-top:112px;padding-bottom:52px;max-width:none}
   .hero__visual{position:relative;width:auto;height:420px;margin-inline:calc(var(--gutter)*-1)}
   .hero__visual img{object-position:center}

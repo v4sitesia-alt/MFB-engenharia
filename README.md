@@ -225,6 +225,15 @@ enquanto todas as demais seções começam em x=344. Trata-se de um desalinhamen
 consistente. Para reproduzir o desalinhamento, basta acrescentar
 `padding-left: 25px` em `.future__copy`.
 
+**Altura do hero.** O layout pede 1070 px fixos, mais do que a área visível de um
+notebook comum (~950 px com a barra do navegador). O texto ficava centralizado numa
+altura que ninguém via inteira, e na prática aparecia empurrado para baixo. A altura
+passou a ser `min-height: min(1070px, 100svh)`: em telas altas mantém os 1070 px do
+design, em telas menores acompanha a viewport. É `min-height`, não `height`, para o
+conteúdo nunca ficar espremido — em telas muito baixas o hero cresce e a página
+rola normalmente. `svh` em vez de `vh` evita o salto que a barra de endereço causa
+no mobile, com uma declaração `vh` antes como fallback.
+
 **Cards de Soluções.** No PDF a imagem e a caixa de texto são dois blocos
 encostados. A pedido, a caixa passou a invadir 38 px da base da imagem, com 12 px
 de recuo lateral, para os dois lerem como uma peça só. A imagem foi de 162 px para
