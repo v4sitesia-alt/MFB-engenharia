@@ -1,0 +1,14 @@
+# artefatos de análise/validação (não fazem parte do site)
+_analysis/
+
+# sistema operacional
+.DS_Store
+Thumbs.db
+
+# editores
+.vscode/
+.idea/
+*.swp
+
+# dependências (caso alguma ferramenta seja adicionada depois)
+node_modules/

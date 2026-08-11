@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MFB Engenharia — Infraestrutura crítica para Data Centers</title>
+<meta name="description" content="A MFB Engenharia desenvolve soluções para Data Centers que exigem alta disponibilidade, segurança operacional e infraestrutura preparada para crescer. Projetos elétricos, adequações, retrofit e manutenção para ambientes críticos.">
+<meta name="theme-color" content="#F97C3D">
+<link rel="icon" href="assets/img/logo.png" type="image/png">
+<link rel="preload" href="assets/fonts/poppins-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/poppins-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="MFB Engenharia — Infraestrutura crítica para Data Centers">
+<meta property="og:description" content="Projetos elétricos, adequações, retrofit e manutenção para ambientes que não podem parar.">
+<meta property="og:image" content="assets/img/hero.jpg">
+<meta property="og:locale" content="pt_BR">
+</head>
+<body>
+
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<!-- ============================ SVG SPRITE ============================ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="i-arrow"><path d="M5 12h14M12 5l7 7-7 7"/></g>
+    <g id="i-check"><path d="M20 6 9 17l-5-5"/></g>
+    <g id="i-check-circle"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></g>
+    <g id="i-zap"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></g>
+    <g id="i-trending"><path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/></g>
+    <g id="i-layers"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="m6.08 9.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/><path d="m6.08 14.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/></g>
+    <g id="i-wrench"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></g>
+    <g id="i-shield"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></g>
+    <g id="i-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></g>
+    <g id="i-headphones"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></g>
+    <g id="i-activity"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></g>
+    <g id="i-file"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m9 15 2 2 4-4"/></g>
+    <g id="i-search"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.34-4.34"/></g>
+    <g id="i-clipboard"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M12 11h4M12 16h4M8 11h.01M8 16h.01"/></g>
+    <g id="i-hardhat"><path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1z"/><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/><path d="M4 15v-3a6 6 0 0 1 6-6"/><path d="M14 6a6 6 0 0 1 6 6v3"/></g>
+    <g id="i-package"><path d="m16 16 2 2 4-4"/><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"/><path d="M16.5 9.4 7.55 4.24"/><path d="M3.29 7 12 12l8.71-5"/><path d="M12 22V12"/></g>
+    <g id="i-plus"><path d="M5 12h14M12 5v14"/></g>
+    <g id="i-minus"><path d="M5 12h14"/></g>
+    <g id="i-quote"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></g>
+  </defs>
+</svg>
+
+<!-- ================================ HEADER ================================ -->
+<header class="site-header" id="topo">
+  <div class="container header__inner">
+    <a class="header__logo" href="#topo" aria-label="MFB Engenharia — início">
+      <img src="assets/img/logo.png" width="115" height="63" alt="MFB Engenharia">
+    </a>
+
+    <nav class="header__nav" id="nav-principal" aria-label="Navegação principal">
+      <a href="#solucoes">Soluções</a>
+      <a href="#diferenciais">Diferenciais</a>
+      <a href="#processo">Processo</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <a class="btn btn--primary btn--sm header__cta" href="#contato">
+      Avaliação Técnica
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
+    </a>
+
+    <button class="header__burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-principal">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="conteudo">
+
+<!-- ================================= HERO ================================= -->
+<section class="hero">
+  <span class="deco deco--hero-tl" aria-hidden="true"></span>
+  <span class="deco deco--hero-sm" aria-hidden="true"></span>
+
+  <div class="hero__visual" aria-hidden="true">
+    <img src="assets/img/hero.jpg" alt="" width="1344" height="1070" fetchpriority="high">
+    <span class="hero__fade"></span>
+  </div>
+
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <p class="eyebrow eyebrow--boxed">
+        <span class="dia" aria-hidden="true"></span>Infraestrutura Crítica · Data Centers
+      </p>
+
+      <h1 class="hero__title">
+        <span class="is-muted">Sua infraestrutura <br>está preparada para</span>
+        <span class="is-ink">operar sem falhas?</span>
+      </h1>
+
+      <p class="hero__lead">
+        Na MFB Engenharia, desenvolvemos soluções para Data Centers que exigem alta
+        disponibilidade, segurança operacional e infraestrutura preparada para crescer.
+        Atuamos em projetos elétricos, adequações, retrofit e manutenção para ambientes críticos.
+      </p>
+
+      <ul class="ticklist">
+        <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check-circle"/></svg>Equipe técnica especializada</li>
+        <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check-circle"/></svg>Projetos para operações críticas</li>
+        <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check-circle"/></svg>Atendimento consultivo</li>
+      </ul>
+
+      <a class="btn btn--primary btn--glow" href="#contato">
+        Solicitar Avaliação Técnica
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== SOLUÇÕES =============================== -->
+<section class="section section--solutions" id="solucoes">
+  <div class="container">
+    <header class="section__head">
+      <p class="eyebrow"><span class="dia" aria-hidden="true"></span>Soluções</p>
+      <h2 class="h2">Soluções para diferentes <br>demandas de <em>Data Centers</em></h2>
+      <p class="section__sub">Cada operação possui necessidades específicas. Por isso, a MFB atua <br>em diferentes frentes dentro da infraestrutura crítica.</p>
+    </header>
+
+    <div class="grid grid--4 solutions">
+      <article class="scard">
+        <div class="scard__media"><img src="assets/img/card-01.jpg" alt="Técnico da MFB executando serviço em quadro elétrico" width="640" height="357" loading="lazy"></div>
+        <div class="scard__body">
+          <div class="scard__top">
+            <span class="dia-tile dia-tile--soft"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-zap"/></svg></span>
+            <span class="ghost-num">01</span>
+          </div>
+          <h3 class="scard__title">Projetos Elétricos</h3>
+          <p class="scard__text">Planejamento e desenvolvimento de sistemas elétricos para ambientes de missão crítica.</p>
+        </div>
+      </article>
+
+      <article class="scard">
+        <div class="scard__media"><img src="assets/img/card-02.jpg" alt="Profissional analisando projeto sobre laje técnica com equipamentos de climatização" width="640" height="357" loading="lazy"></div>
+        <div class="scard__body">
+          <div class="scard__top">
+            <span class="dia-tile dia-tile--soft"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trending"/></svg></span>
+            <span class="ghost-num">02</span>
+          </div>
+          <h3 class="scard__title">Adequações e Expansões</h3>
+          <p class="scard__text">Estruturas preparadas para crescimento sem comprometer a operação existente.</p>
+        </div>
+      </article>
+
+      <article class="scard">
+        <div class="scard__media"><img src="assets/img/card-03.jpg" alt="Engenheiro inspecionando fachada de edifício corporativo" width="640" height="358" loading="lazy"></div>
+        <div class="scard__body">
+          <div class="scard__top">
+            <span class="dia-tile dia-tile--soft"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-layers"/></svg></span>
+            <span class="ghost-num">03</span>
+          </div>
+          <h3 class="scard__title">Retrofit de Infraestrutura</h3>
+          <p class="scard__text">Modernização de instalações para aumento de eficiência e confiabilidade.</p>
+        </div>
+      </article>
+
+      <article class="scard">
+        <div class="scard__media"><img src="assets/img/card-04.jpg" alt="Equipe MFB em vistoria técnica de instalações prediais" width="640" height="357" loading="lazy"></div>
+        <div class="scard__body">
+          <div class="scard__top">
+            <span class="dia-tile dia-tile--soft"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wrench"/></svg></span>
+            <span class="ghost-num">04</span>
+          </div>
+          <h3 class="scard__title">Manutenção Técnica</h3>
+          <p class="scard__text">Atuação preventiva e corretiva para garantir disponibilidade operacional.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="cta-banner">
+      <p class="cta-banner__text">Descubra como reduzir riscos e aumentar a <br>confiabilidade da sua infraestrutura.</p>
+      <a class="btn btn--primary btn--caps" href="#contato">
+        Solicitar Avaliação
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= DIFERENCIAIS ============================= -->
+<section class="section section--soft" id="diferenciais">
+  <span class="deco deco--diff" aria-hidden="true"></span>
+  <div class="container">
+    <header class="section__head">
+      <p class="eyebrow"><span class="dia" aria-hidden="true"></span>Diferenciais</p>
+      <h2 class="h2">Tudo o que sua operação <br>precisa em <em class="is-muted">um único parceiro</em></h2>
+      <p class="section__sub">Da análise inicial à execução, a MFB entrega soluções completas para operações <br>que não podem correr riscos.</p>
+    </header>
+
+    <div class="grid grid--3 feats">
+      <article class="fcard">
+        <span class="dia-tile dia-tile--dark"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></span>
+        <div>
+          <h3 class="fcard__title">Segurança Operacional</h3>
+          <p class="fcard__text">Projetos desenvolvidos para minimizar falhas e aumentar a confiabilidade da infraestrutura.</p>
+        </div>
+      </article>
+      <article class="fcard">
+        <span class="dia-tile dia-tile--dark"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-users"/></svg></span>
+        <div>
+          <h3 class="fcard__title">Equipe Especializada</h3>
+          <p class="fcard__text">Profissionais qualificados e preparados para atuar em ambientes de alta exigência técnica.</p>
+        </div>
+      </article>
+      <article class="fcard">
+        <span class="dia-tile dia-tile--dark"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-headphones"/></svg></span>
+        <div>
+          <h3 class="fcard__title">Atendimento Consultivo</h3>
+          <p class="fcard__text">Diagnóstico, planejamento e acompanhamento próximo durante todas as etapas.</p>
+        </div>
+      </article>
+      <article class="fcard">
+        <span class="dia-tile dia-tile--dark"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-activity"/></svg></span>
+        <div>
+          <h3 class="fcard__title">Capacidade de Execução</h3>
+          <p class="fcard__text">Estrutura preparada para atender projetos de diferentes níveis de complexidade.</p>
+        </div>
+      </article>
+      <article class="fcard">
+        <span class="dia-tile dia-tile--dark"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-file"/></svg></span>
+        <div>
+          <h3 class="fcard__title">Conformidade Técnica</h3>
+          <p class="fcard__text">Execução alinhada às exigências normativas e boas práticas do mercado.</p>
+        </div>
+      </article>
+      <article class="fcard">
+        <span class="dia-tile dia-tile--dark"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trending"/></svg></span>
+        <div>
+          <h3 class="fcard__title">Continuidade Operacional</h3>
+          <p class="fcard__text">Soluções pensadas para manter operações funcionando com máxima eficiência.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="section__foot">
+      <a class="btn btn--primary" href="#contato">
+        Falar com um Especialista
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== VISÃO DE FUTURO =========================== -->
+<section class="section section--future">
+  <span class="deco deco--future" aria-hidden="true"></span>
+  <div class="future__visual" aria-hidden="true">
+    <img src="assets/img/future.jpg" alt="" width="2066" height="941" loading="lazy">
+  </div>
+
+  <div class="container future__inner">
+    <div class="future__copy">
+      <p class="eyebrow"><span class="dia" aria-hidden="true"></span>Visão de futuro</p>
+      <h2 class="h2">Infraestrutura <br>preparada <em>para o futuro</em></h2>
+      <p class="section__sub section__sub--left">
+        Mais do que resolver problemas atuais, a MFB desenvolve soluções que acompanham
+        o crescimento das operações. Cada projeto é pensado para gerar segurança,
+        escalabilidade e previsibilidade para empresas que dependem de ambientes
+        tecnológicos de alta performance.
+      </p>
+
+      <ul class="ticklist ticklist--dia">
+        <li><span class="dia-tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check-circle"/></svg></span>Redução de riscos operacionais</li>
+        <li><span class="dia-tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check-circle"/></svg></span>Mais confiabilidade para operações críticas</li>
+        <li><span class="dia-tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check-circle"/></svg></span>Estruturas preparadas para expansão</li>
+        <li><span class="dia-tick"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check-circle"/></svg></span>Maior previsibilidade operacional</li>
+      </ul>
+
+      <a class="btn btn--primary" href="#contato">
+        Falar com um Especialista
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== METODOLOGIA ============================== -->
+<section class="section section--dark" id="processo">
+  <div class="container">
+    <header class="section__head">
+      <p class="eyebrow"><span class="dia" aria-hidden="true"></span>Metodologia</p>
+      <h2 class="h2">Como garantimos a <br>confiabilidade <em>da sua operação?</em></h2>
+      <p class="section__sub">Da análise inicial à execução, a MFB atua como parceira estratégica para empresas <br>que precisam de segurança, previsibilidade e confiabilidade operacional.</p>
+    </header>
+
+    <ol class="grid grid--4 steps">
+      <li class="step">
+        <div class="step__top">
+          <span class="dia-tile dia-tile--outline"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg></span>
+          <span class="ghost-num ghost-num--dark">01</span>
+        </div>
+        <h3 class="step__title">Diagnóstico Técnico</h3>
+        <p class="step__text">Entendemos os riscos, limitações e necessidades da operação.</p>
+      </li>
+      <li class="step">
+        <div class="step__top">
+          <span class="dia-tile dia-tile--outline"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-clipboard"/></svg></span>
+          <span class="ghost-num ghost-num--dark">02</span>
+        </div>
+        <h3 class="step__title">Planejamento</h3>
+        <p class="step__text">Desenvolvemos a melhor solução para o ambiente e objetivos do cliente.</p>
+      </li>
+      <li class="step">
+        <div class="step__top">
+          <span class="dia-tile dia-tile--outline"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-hardhat"/></svg></span>
+          <span class="ghost-num ghost-num--dark">03</span>
+        </div>
+        <h3 class="step__title">Execução</h3>
+        <p class="step__text">Realizamos as adequações com equipe própria e acompanhamento técnico.</p>
+      </li>
+      <li class="step">
+        <div class="step__top">
+          <span class="dia-tile dia-tile--outline"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-package"/></svg></span>
+          <span class="ghost-num ghost-num--dark">04</span>
+        </div>
+        <h3 class="step__title">Entrega e Suporte</h3>
+        <p class="step__text">Garantimos que a infraestrutura esteja pronta para operar com segurança e confiabilidade.</p>
+      </li>
+    </ol>
+
+    <div class="section__foot">
+      <a class="btn btn--primary" href="#contato">
+        Falar com um Especialista
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== DEPOIMENTOS ============================== -->
+<section class="section section--soft">
+  <div class="container">
+    <header class="section__head">
+      <p class="eyebrow"><span class="dia" aria-hidden="true"></span>Depoimentos</p>
+      <h2 class="h2">Empresas que confiam na <br><em class="is-muted">MFB Engenharia</em></h2>
+    </header>
+
+    <div class="grid grid--3 quotes">
+      <figure class="qcard">
+        <svg class="qcard__mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-quote"/></svg>
+        <blockquote class="qcard__text">“A MFB entregou uma reforma elétrica completa em nosso Data Center sem uma única parada. Confiabilidade absoluta.”</blockquote>
+        <figcaption class="qcard__who">
+          <span class="dia-tile dia-tile--soft dia-tile--xs">1</span>
+          <span>
+            <strong>Diretor de TI</strong>
+            <small>Empresa de Tecnologia</small>
+          </span>
+        </figcaption>
+      </figure>
+
+      <figure class="qcard">
+        <svg class="qcard__mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-quote"/></svg>
+        <blockquote class="qcard__text">“Equipe consultiva do início ao fim. Enxergaram riscos que nem imaginávamos e blindaram nossa operação.”</blockquote>
+        <figcaption class="qcard__who">
+          <span class="dia-tile dia-tile--soft dia-tile--xs">2</span>
+          <span>
+            <strong>Gerente de Infraestrutura</strong>
+            <small>Grupo Hospitalar</small>
+          </span>
+        </figcaption>
+      </figure>
+
+      <figure class="qcard">
+        <svg class="qcard__mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-quote"/></svg>
+        <blockquote class="qcard__text">“Parceiros estratégicos. Executam projetos complexos com o rigor técnico que operações críticas exigem.”</blockquote>
+        <figcaption class="qcard__who">
+          <span class="dia-tile dia-tile--soft dia-tile--xs">3</span>
+          <span>
+            <strong>Coordenador de Facilities</strong>
+            <small>Empresa de Telecom</small>
+          </span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="section__foot">
+      <a class="btn btn--primary" href="#contato">
+        Falar com um Especialista
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================================== FAQ ================================== -->
+<section class="section section--faq" id="faq">
+  <div class="container">
+    <header class="section__head">
+      <p class="eyebrow"><span class="dia" aria-hidden="true"></span>FAQ</p>
+      <h2 class="h2">Respondemos suas dúvidas <br><em>principais aqui!</em></h2>
+    </header>
+
+    <div class="accordion">
+      <div class="acc is-open">
+        <button class="acc__q" type="button" aria-expanded="true" aria-controls="acc-1" id="accb-1">
+          <span>A MFB atende apenas Data Centers?</span>
+          <span class="acc__icon" aria-hidden="true">
+            <svg class="ico ico--minus" viewBox="0 0 24 24"><use href="#i-minus"/></svg>
+            <svg class="ico ico--plus" viewBox="0 0 24 24"><use href="#i-plus"/></svg>
+          </span>
+        </button>
+        <div class="acc__a" id="acc-1" role="region" aria-labelledby="accb-1">
+          <p>Não. A empresa atua em diversos segmentos corporativos e industriais. Porém, possui capacidade técnica para atender ambientes críticos que exigem alta confiabilidade operacional.</p>
+        </div>
+      </div>
+
+      <div class="acc">
+        <button class="acc__q" type="button" aria-expanded="false" aria-controls="acc-2" id="accb-2">
+          <span>A MFB realiza apenas execução?</span>
+          <span class="acc__icon" aria-hidden="true">
+            <svg class="ico ico--minus" viewBox="0 0 24 24"><use href="#i-minus"/></svg>
+            <svg class="ico ico--plus" viewBox="0 0 24 24"><use href="#i-plus"/></svg>
+          </span>
+        </button>
+        <div class="acc__a" id="acc-2" role="region" aria-labelledby="accb-2">
+          <p>Não. Atuamos desde o diagnóstico técnico e o desenvolvimento do projeto até a execução, a entrega e o suporte posterior. O acompanhamento consultivo faz parte de todas as etapas.</p>
+        </div>
+      </div>
+
+      <div class="acc">
+        <button class="acc__q" type="button" aria-expanded="false" aria-controls="acc-3" id="accb-3">
+          <span>Vocês atendem projetos de expansão?</span>
+          <span class="acc__icon" aria-hidden="true">
+            <svg class="ico ico--minus" viewBox="0 0 24 24"><use href="#i-minus"/></svg>
+            <svg class="ico ico--plus" viewBox="0 0 24 24"><use href="#i-plus"/></svg>
+          </span>
+        </button>
+        <div class="acc__a" id="acc-3" role="region" aria-labelledby="accb-3">
+          <p>Sim. Desenvolvemos adequações e expansões de infraestrutura preparadas para o crescimento da operação, sem comprometer os ambientes que já estão em funcionamento.</p>
+        </div>
+      </div>
+
+      <div class="acc">
+        <button class="acc__q" type="button" aria-expanded="false" aria-controls="acc-4" id="accb-4">
+          <span>Como funciona a avaliação técnica?</span>
+          <span class="acc__icon" aria-hidden="true">
+            <svg class="ico ico--minus" viewBox="0 0 24 24"><use href="#i-minus"/></svg>
+            <svg class="ico ico--plus" viewBox="0 0 24 24"><use href="#i-plus"/></svg>
+          </span>
+        </button>
+        <div class="acc__a" id="acc-4" role="region" aria-labelledby="accb-4">
+          <p>Você envia o formulário com o contexto da sua operação e retornamos em até 24h úteis. A partir daí, agendamos o levantamento técnico para identificar riscos, limitações e oportunidades de melhoria.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================ CONTATO ================================ -->
+<section class="section section--contact" id="contato">
+  <div class="contact__bg" aria-hidden="true">
+    <img src="assets/img/contact.jpg" alt="" width="1672" height="941" loading="lazy">
+  </div>
+
+  <div class="container contact__inner">
+    <div class="contact__copy">
+      <p class="eyebrow"><span class="dia" aria-hidden="true"></span>Fale conosco</p>
+      <h2 class="h2 h2--lg">Sua operação não <br>pode correr <em>riscos</em> <br><em>desnecessários.</em></h2>
+      <p class="contact__lead">
+        A MFB Engenharia combina capacidade técnica, experiência operacional e atendimento
+        consultivo para garantir que sua infraestrutura esteja pronta para crescer com segurança.
+      </p>
+    </div>
+
+    <div class="formcard">
+      <h3 class="formcard__title">Solicitar Avaliação Técnica</h3>
+      <p class="formcard__sub">Retornamos em até 24h úteis.</p>
+
+      <form class="form" novalidate>
+        <div class="field">
+          <label class="sr-only" for="f-nome">Nome completo</label>
+          <input id="f-nome" name="nome" type="text" placeholder="Nome completo" autocomplete="name" required>
+          <span class="field__err" data-err></span>
+        </div>
+        <div class="field">
+          <label class="sr-only" for="f-email">E-mail corporativo</label>
+          <input id="f-email" name="email" type="email" placeholder="E-mail corporativo" autocomplete="email" required>
+          <span class="field__err" data-err></span>
+        </div>
+        <div class="field">
+          <label class="sr-only" for="f-empresa">Empresa</label>
+          <input id="f-empresa" name="empresa" type="text" placeholder="Empresa" autocomplete="organization" required>
+          <span class="field__err" data-err></span>
+        </div>
+        <div class="field">
+          <label class="sr-only" for="f-msg">Conte sobre sua operação</label>
+          <textarea id="f-msg" name="mensagem" rows="3" placeholder="Conte sobre sua operação"></textarea>
+          <span class="field__err" data-err></span>
+        </div>
+
+        <button class="btn btn--primary btn--caps btn--block" type="submit">
+          Enviar solicitação
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </button>
+
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================================= FOOTER ================================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img src="assets/img/logo.png" width="115" height="63" alt="MFB Engenharia" loading="lazy">
+        <p>Infraestrutura crítica para Data Centers e ambientes que não podem parar. Projetos, adequações, retrofit e manutenção com rigor de engenharia.</p>
+      </div>
+
+      <nav class="footer__col" aria-label="Navegação do rodapé">
+        <h2>Navegação</h2>
+        <ul>
+          <li><a href="#solucoes">Soluções</a></li>
+          <li><a href="#diferenciais">Diferenciais</a></li>
+          <li><a href="#processo">Processo</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__col">
+        <h2>Contato</h2>
+        <ul>
+          <li><a href="mailto:contato@mfbengenharia.com.br">contato@mfbengenharia.com.br</a></li>
+          <li><a href="tel:+551100000000">+55 (11) 0000-0000</a></li>
+          <li>São Paulo, Brasil</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bar">
+      <p>© 2026 MFB Engenharia. Todos os direitos reservados.</p>
+      <p><span class="dia" aria-hidden="true"></span>Engenharia para operações críticas</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>
