@@ -515,12 +515,21 @@
           <span class="field__err" data-err></span>
         </div>
 
+        <!-- Isca para robôs: fora da tela, fora da tabulação e fora da leitura de
+             tela. Visitante nenhum preenche; envio com ela preenchida é descartado. -->
+        <div class="form__trap" aria-hidden="true">
+          <label for="f-site">Deixe este campo em branco</label>
+          <input id="f-site" name="site" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
         <button class="btn btn--primary btn--caps btn--block" type="submit">
           Enviar solicitação
           <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
         </button>
 
         <p class="form__status" role="status" aria-live="polite"></p>
+        <!-- Se o redirecionamento automático for bloqueado, resta o link. -->
+        <a class="form__wa" href="#" hidden>Abrir a conversa no WhatsApp</a>
       </form>
     </div>
   </div>

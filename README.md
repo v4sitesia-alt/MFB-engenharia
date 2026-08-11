@@ -112,6 +112,34 @@ Depoimentos · FAQ · Contato · Rodapé
 
 ---
 
+## Formulário de contato
+
+O envio tem duas pernas: registrar o lead por e-mail em
+`comercial@mfbengenharia.com.br` e levar a pessoa para o WhatsApp comercial
+(+55 11 4858-4921) com a conversa já iniciada.
+
+**WhatsApp.** Ao enviar, a saudação é montada com os dados recém-digitados e
+codificada num link `wa.me`, de modo que a equipe recebe nome, empresa, e-mail e o
+contexto da operação sem precisar perguntar de novo. O redirecionamento é em
+mesma aba, após 1,4 s de confirmação na tela; se algo bloquear a navegação, um link
+visível fica no lugar.
+
+**E-mail.** Depende de um serviço externo — um site estático não envia e-mail
+sozinho. O ponto de integração é a constante `ENDPOINT` no topo de
+`assets/js/main.js`. Enquanto ela estiver vazia, o formulário valida os campos e
+segue direto para o WhatsApp, sem exibir mensagem de "enviado" para um e-mail que
+não saiu. Com a constante preenchida, o formulário faz `POST` de um JSON com
+`nome`, `email`, `empresa`, `mensagem`, `origem` e `site`.
+
+Se o `POST` falhar, o visitante ainda é levado ao WhatsApp: uma indisponibilidade
+do serviço de e-mail não pode fazer o lead se perder.
+
+**Anti-spam.** O campo `site` é uma isca: fica a −9999 px da tela, fora da ordem de
+tabulação e com `aria-hidden`. Nenhum visitante o preenche, então qualquer envio com
+ele preenchido deve ser descartado por quem receber o `POST`.
+
+---
+
 ## Movimento e interações
 
 **Entrada dos elementos.** Um `IntersectionObserver` marca `.is-in` quando o bloco
@@ -211,9 +239,8 @@ e preview por pull request.
    técnica?" foram redigidas no mesmo tom da marca e **precisam de revisão**.
 2. **Dados de contato** — telefone `+55 (11) 0000-0000` é o placeholder do próprio
    layout. O e-mail `contato@mfbengenharia.com.br` veio do PDF.
-3. **Envio do formulário** — hoje o formulário valida e limpa os campos, sem enviar
-   para lugar nenhum. Falta plugar o destino (CRM, e-mail ou endpoint próprio);
-   o ponto está marcado com `TODO` em `assets/js/main.js`.
+3. **Envio por e-mail** — falta escolher o serviço que entrega em
+   `comercial@mfbengenharia.com.br`. Ver "Formulário de contato" abaixo.
 4. **Depoimentos** — os três textos são genéricos ("Diretor de TI", "Empresa de
    Tecnologia"), como no layout. Substituir por depoimentos reais e autorizados.
 

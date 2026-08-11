@@ -540,6 +540,15 @@ ul,ol{padding:0;list-style:none}
 .form__status{margin-top:4px;font-size:14px;line-height:20px;color:#9EE6A8}
 .form__status:empty{display:none}
 .form__status.is-error{color:#FF8085}
+/* Isca anti-robô: fora da tela, sem ocupar espaço no formulário. */
+.form__trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.form .btn[disabled]{opacity:.65;cursor:progress}
+.form .btn[disabled]:hover{background:var(--orange);transform:none}
+.form__wa{
+  margin-top:2px;font-size:14px;line-height:20px;color:#9EE6A8;
+  text-decoration:underline;text-underline-offset:3px;
+}
+.form__wa[hidden]{display:none}
 
 /* --------------------------------- FOOTER -------------------------------- */
 .site-footer{background:var(--ink);color:#fff;padding:36px 0 36px}

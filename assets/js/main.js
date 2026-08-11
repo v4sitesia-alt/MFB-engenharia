@@ -6,6 +6,15 @@
 
   var HEADER_H = 65;
 
+  /* ------------------------- Contato ------------------------- */
+  /* Número comercial: +55 11 4858-4921 */
+  var WHATSAPP_BASE = 'https://wa.me/551148584921';
+
+  /* Endpoint que recebe o formulário e dispara o e-mail para
+     comercial@mfbengenharia.com.br. Enquanto estiver vazio, o formulário valida
+     e leva a pessoa direto para o WhatsApp, sem prometer um e-mail que não sai. */
+  var ENDPOINT = '';
+
   /* ---------------------- Menu mobile ---------------------- */
   var burger = document.querySelector('.header__burger');
   var nav = document.getElementById('nav-principal');
@@ -178,27 +187,95 @@
       });
     });
 
+    var botao = form.querySelector('button[type="submit"]');
+    var waLink = form.querySelector('.form__wa');
+    var enviando = false;
+
+    function aviso(texto, erro) {
+      if (!status) return;
+      status.classList.toggle('is-error', !!erro);
+      status.textContent = texto;
+    }
+
+    /* Saudação já preenchida na conversa, com os dados que a pessoa acabou de
+       digitar — a equipe recebe o contexto sem ter que perguntar de novo. */
+    function saudacao(d) {
+      var linhas = [
+        'Olá, MFB Engenharia!',
+        '',
+        'Acabei de solicitar uma avaliação técnica pelo site.',
+        '',
+        'Nome: ' + d.nome,
+        'Empresa: ' + d.empresa,
+        'E-mail: ' + d.email
+      ];
+      if (d.mensagem) linhas.push('Operação: ' + d.mensagem);
+      linhas.push(
+        '',
+        'Gostaria de conversar sobre a disponibilidade e a segurança da nossa infraestrutura.'
+      );
+      return linhas.join('\n');
+    }
+
+    function irParaWhatsapp(url) {
+      if (waLink) { waLink.href = url; waLink.hidden = false; }
+      setTimeout(function () { window.location.href = url; }, 1400);
+    }
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (enviando) return;
 
       var inputs = Array.prototype.slice.call(form.querySelectorAll('input, textarea'));
-      var ok = inputs.map(validateField).every(Boolean);
-
-      if (status) {
-        status.classList.toggle('is-error', !ok);
-        status.textContent = ok
-          ? 'Solicitação registrada. Retornaremos em até 24h úteis.'
-          : 'Revise os campos destacados para continuar.';
-      }
-
-      if (!ok) {
+      if (!inputs.map(validateField).every(Boolean)) {
+        aviso('Revise os campos destacados para continuar.', true);
         var first = form.querySelector('.field.has-error input, .field.has-error textarea');
         if (first) first.focus();
         return;
       }
 
-      // TODO: integrar com o endpoint real (CRM, e-mail marketing ou API).
-      form.reset();
+      var dados = {
+        nome: form.nome.value.trim(),
+        email: form.email.value.trim(),
+        empresa: form.empresa.value.trim(),
+        mensagem: form.mensagem.value.trim(),
+        site: form.site ? form.site.value : '',   // isca anti-robô
+        origem: window.location.href
+      };
+
+      var url = WHATSAPP_BASE + '?text=' + encodeURIComponent(saudacao(dados));
+
+      // Sem endpoint configurado, o contato ainda acontece pelo WhatsApp.
+      if (!ENDPOINT) {
+        aviso('Abrindo o WhatsApp com seus dados...', false);
+        form.reset();
+        irParaWhatsapp(url);
+        return;
+      }
+
+      enviando = true;
+      if (botao) botao.disabled = true;
+      aviso('Enviando sua solicitação...', false);
+
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(dados)
+      })
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          aviso('Solicitação enviada. Abrindo o WhatsApp...', false);
+          form.reset();
+        })
+        .catch(function () {
+          // O e-mail falhou, mas o lead não pode se perder: segue pelo WhatsApp.
+          aviso('Não foi possível enviar por e-mail. Seguindo pelo WhatsApp...', true);
+        })
+        .then(function () {
+          enviando = false;
+          if (botao) botao.disabled = false;
+          irParaWhatsapp(url);
+        });
     });
   }
 })();
