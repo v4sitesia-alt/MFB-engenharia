@@ -10,10 +10,22 @@
   /* Número comercial: +55 11 4858-4921 */
   var WHATSAPP_BASE = 'https://wa.me/551148584921';
 
-  /* Endpoint que recebe o formulário e dispara o e-mail para
-     comercial@mfbengenharia.com.br. Enquanto estiver vazio, o formulário valida
-     e leva a pessoa direto para o WhatsApp, sem prometer um e-mail que não sai. */
-  var ENDPOINT = '';
+  /* Webhooks do n8n que recebem o lead e disparam o e-mail para
+     comercial@mfbengenharia.com.br. */
+  var WEBHOOK = {
+    producao: 'https://webhook.v4mundim.com/webhook/8ed70d33-9607-4296-aaa5-81594508128a',
+    teste: 'https://n8n.v4mundim.com/webhook-test/8ed70d33-9607-4296-aaa5-81594508128a'
+  };
+
+  /* O webhook de teste só responde depois de clicar em "Execute workflow" no n8n
+     e vale por uma chamada — não serve para o site publicado. Fica atrás de um
+     interruptor: em localhost ele é o padrão, e no site no ar basta abrir a
+     página com ?wh=test para apontar para ele sem republicar nada. */
+  function endpoint() {
+    var local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(window.location.hostname);
+    var pedeTeste = /[?&]wh=test(&|$)/.test(window.location.search);
+    return local || pedeTeste ? WEBHOOK.teste : WEBHOOK.producao;
+  }
 
   /* ---------------------- Menu mobile ---------------------- */
   var burger = document.querySelector('.header__burger');
@@ -245,19 +257,11 @@
 
       var url = WHATSAPP_BASE + '?text=' + encodeURIComponent(saudacao(dados));
 
-      // Sem endpoint configurado, o contato ainda acontece pelo WhatsApp.
-      if (!ENDPOINT) {
-        aviso('Abrindo o WhatsApp com seus dados...', false);
-        form.reset();
-        irParaWhatsapp(url);
-        return;
-      }
-
       enviando = true;
       if (botao) botao.disabled = true;
       aviso('Enviando sua solicitação...', false);
 
-      fetch(ENDPOINT, {
+      fetch(endpoint(), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(dados)
@@ -267,9 +271,11 @@
           aviso('Solicitação enviada. Abrindo o WhatsApp...', false);
           form.reset();
         })
-        .catch(function () {
-          // O e-mail falhou, mas o lead não pode se perder: segue pelo WhatsApp.
-          aviso('Não foi possível enviar por e-mail. Seguindo pelo WhatsApp...', true);
+        .catch(function (err) {
+          /* Falha de rede, CORS ou erro do workflow. O lead não pode se perder
+             por isso: o WhatsApp segue levando os mesmos dados. */
+          if (window.console) console.error('[MFB] falha ao enviar o lead:', err);
+          aviso('Não foi possível registrar por e-mail. Seguindo pelo WhatsApp...', true);
         })
         .then(function () {
           enviando = false;

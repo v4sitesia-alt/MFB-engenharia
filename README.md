@@ -124,15 +124,60 @@ contexto da operação sem precisar perguntar de novo. O redirecionamento é em
 mesma aba, após 1,4 s de confirmação na tela; se algo bloquear a navegação, um link
 visível fica no lugar.
 
-**E-mail.** Depende de um serviço externo — um site estático não envia e-mail
-sozinho. O ponto de integração é a constante `ENDPOINT` no topo de
-`assets/js/main.js`. Enquanto ela estiver vazia, o formulário valida os campos e
-segue direto para o WhatsApp, sem exibir mensagem de "enviado" para um e-mail que
-não saiu. Com a constante preenchida, o formulário faz `POST` de um JSON com
-`nome`, `email`, `empresa`, `mensagem`, `origem` e `site`.
+**E-mail.** O formulário faz `POST` de um JSON para um webhook do n8n, que cuida do
+envio. Payload:
 
-Se o `POST` falhar, o visitante ainda é levado ao WhatsApp: uma indisponibilidade
-do serviço de e-mail não pode fazer o lead se perder.
+```json
+{
+  "nome": "Ana Ribeiro",
+  "email": "ana@empresa.com.br",
+  "empresa": "Empresa Alfa",
+  "mensagem": "Data center com 40 racks.",
+  "site": "",
+  "origem": "https://mfb-engenharia.vercel.app/"
+}
+```
+
+Se o `POST` falhar — rede, CORS ou erro no workflow —, o visitante ainda é levado ao
+WhatsApp com os mesmos dados: uma indisponibilidade do n8n não pode fazer o lead se
+perder. A falha vai para o console do navegador.
+
+### Produção x teste
+
+O webhook de teste do n8n só responde depois de clicar em "Execute workflow" no
+editor e vale por uma única chamada — não serve para o site publicado. Por isso a
+escolha é automática, em `endpoint()`:
+
+| Onde | Webhook |
+|---|---|
+| Site publicado | produção |
+| Site publicado com `?wh=test` na URL | teste |
+| `localhost` / `127.0.0.1` | teste |
+
+O `?wh=test` permite exercitar o workflow contra o site no ar sem republicar nada:
+abra `https://mfb-engenharia.vercel.app/?wh=test`, clique em "Execute workflow" no
+n8n e envie o formulário.
+
+### CORS
+
+O `POST` sai do navegador para outro domínio, então o nó Webhook precisa ter
+**Allowed Origins (CORS)** preenchido — em Options do nó. Sem isso o navegador
+bloqueia a chamada antes de ela sair. Valor sugerido:
+
+```
+https://mfb-engenharia.vercel.app
+```
+
+Como o `Content-Type` é `application/json`, o navegador manda um `OPTIONS` de
+preflight antes do `POST`; o n8n responde a ele sozinho quando o CORS está
+configurado.
+
+### Sobre o endereço ficar visível
+
+O webhook aparece no `main.js`, como acontece com qualquer integração feita do lado
+do navegador — não há onde esconder uma URL que o próprio navegador precisa chamar.
+Vale tratar a validação no workflow: descartar envio com `site` preenchido (é a isca
+anti-robô), exigir `nome`, `email` e `empresa`, e limitar a taxa por IP.
 
 **Anti-spam.** O campo `site` é uma isca: fica a −9999 px da tela, fora da ordem de
 tabulação e com `aria-hidden`. Nenhum visitante o preenche, então qualquer envio com
