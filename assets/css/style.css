@@ -52,6 +52,12 @@
 
   --shadow-card:0 4px 24px rgba(16,16,16,.05);
   --shadow-pop:0 10px 30px rgba(16,16,16,.08);
+
+  /* movimento */
+  --ease-out:cubic-bezier(.22,.61,.36,1);   /* desaceleração natural */
+  --ease-back:cubic-bezier(.34,1.28,.5,1);  /* leve overshoot */
+  --reveal-dur:.75s;
+  --ring-dur:2.6s;
   --tracking:-.02em;          /* tracking dos títulos (medido do PDF) */
 }
 
@@ -269,17 +275,69 @@ ul,ol{padding:0;list-style:none}
 .grid--3{grid-template-columns:repeat(3,1fr)}
 .grid--4{grid-template-columns:repeat(4,1fr)}
 
+/* ------------------- BORDA COM GRADIENTE ROTATIVO -------------------- */
+/* Um anel de gradiente cônico gira ao redor da caixa no hover. O @property
+   registra o ângulo como tipo <angle>, que é o que permite interpolá-lo —
+   sem esse suporte o navegador mostra o gradiente parado, que continua
+   sendo uma borda válida em vez de um efeito quebrado. */
+@property --ring-ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+
+.scard__body,.fcard,.qcard,.acc{position:relative}
+
+.scard__body::after,.fcard::after,.qcard::after,.acc::after{
+  content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+  border-radius:inherit;padding:1.5px;
+  background:conic-gradient(from var(--ring-ang),
+    rgba(249,124,61,0)   0deg,
+    rgba(249,124,61,0)  40deg,
+    var(--orange)      110deg,
+    #FFC79F            150deg,
+    var(--orange)      190deg,
+    rgba(249,124,61,0) 260deg,
+    rgba(249,124,61,0) 360deg);
+  /* recorta o miolo e deixa só a faixa de 1.5px da borda */
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask-composite:exclude;
+  opacity:0;transition:opacity .35s ease;
+}
+
+.scard:hover .scard__body::after,
+.fcard:hover::after,
+.qcard:hover::after,
+.acc:hover::after,
+.acc:focus-within::after{
+  opacity:1;
+  animation:ring-spin var(--ring-dur) linear infinite;
+}
+
+@keyframes ring-spin{to{--ring-ang:360deg}}
+
+/* Sobe levemente a caixa junto com o anel, para o hover ter peso. */
+.fcard,.qcard{transition:transform .4s var(--ease-out),box-shadow .4s var(--ease-out)}
+.fcard:hover,.qcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-pop)}
+.scard__body{transition:transform .4s var(--ease-out),box-shadow .4s var(--ease-out)}
+.scard:hover .scard__body{transform:translateY(-4px);box-shadow:0 18px 40px rgba(16,16,16,.13)}
+
 /* ---------------------------- CARDS SOLUÇÕES ---------------------------- */
 .solutions{margin-top:57px}
 .scard{position:relative;display:flex;flex-direction:column}
+/* A imagem é 38px mais alta do que a área visível: o corpo do card cobre essa
+   sobra, encaixando os dois blocos em uma peça só. */
 .scard__media{
-  height:162px;border-radius:var(--radius) var(--radius) 0 0;overflow:hidden;
+  height:200px;border-radius:var(--radius);overflow:hidden;
 }
-.scard__media img{width:100%;height:100%;object-fit:cover}
+.scard__media img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .6s var(--ease-out);
+}
+.scard:hover .scard__media img{transform:scale(1.05)}
 .scard__body{
-  flex:1;margin-top:-1px;padding:21px 25px 35px 33px;background:var(--white);
+  position:relative;z-index:1;flex:1;
+  margin:-38px 12px 0;padding:21px 25px 35px 33px;background:var(--white);
   border:1px solid #F0F0EE;border-radius:var(--radius);
-  box-shadow:var(--shadow-card);
+  box-shadow:var(--shadow-pop);
 }
 .scard__top{display:flex;align-items:center;justify-content:space-between;margin-left:-10px}
 .scard__title{
@@ -373,16 +431,29 @@ ul,ol{padding:0;list-style:none}
   position:relative;display:grid;place-items:center;flex:none;width:44px;height:44px;
   color:var(--orange);
 }
+/* O losango dá meia-volta ao abrir; o + e o − trocam girando um sobre o
+   outro. Ambos ocupam a mesma célula do grid para poderem cruzar-se — com
+   display:none não haveria transição. */
 .acc__icon::before{
   content:'';position:absolute;inset:14.6%;transform:rotate(45deg);
-  border:1.5px solid var(--orange);border-radius:3px;transition:background .2s ease;
+  border:1.5px solid var(--orange);border-radius:3px;
+  transition:transform .5s var(--ease-back),background .3s ease;
 }
 .acc.is-open .acc__icon{color:#fff}
-.acc.is-open .acc__icon::before{background:var(--orange)}
-.acc__icon .ico{position:relative;width:16px;height:16px;stroke-width:2.4}
-.acc__icon .ico--minus{display:none}
-.acc.is-open .acc__icon .ico--minus{display:block}
-.acc.is-open .acc__icon .ico--plus{display:none}
+.acc.is-open .acc__icon::before{background:var(--orange);transform:rotate(225deg)}
+
+.acc__icon .ico{
+  grid-area:1/1;position:relative;width:16px;height:16px;stroke-width:2.4;
+  transition:transform .5s var(--ease-back),opacity .3s ease;
+}
+.acc__icon .ico--plus{opacity:1;transform:rotate(0)}
+.acc__icon .ico--minus{opacity:0;transform:rotate(-90deg)}
+.acc.is-open .acc__icon .ico--plus{opacity:0;transform:rotate(90deg)}
+.acc.is-open .acc__icon .ico--minus{opacity:1;transform:rotate(0)}
+
+/* O quadro inteiro reage ao passar o mouse, não só ao abrir. */
+.acc__q:hover .acc__icon::before{transform:rotate(45deg) scale(1.08)}
+.acc.is-open .acc__q:hover .acc__icon::before{transform:rotate(225deg) scale(1.08)}
 .acc__a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease}
 .acc.is-open .acc__a{grid-template-rows:1fr}
 .acc__a>p{
@@ -469,6 +540,55 @@ ul,ol{padding:0;list-style:none}
   margin-top:56px;padding-top:26px;border-top:1px solid #232323;
 }
 .footer__bar p{display:flex;align-items:center;gap:9px;font-size:12px;color:#8E8E8E}
+
+/* ========================= ANIMAÇÕES DE ENTRADA ========================= */
+/* O estado escondido só existe quando o JS confirma que vai revelar
+   (classe .reveal-on no <html>) e quando o visitante não pediu menos
+   movimento. Sem JS, sem suporte a IntersectionObserver ou com
+   prefers-reduced-motion, nada disso é aplicado e o conteúdo aparece
+   normalmente — a página nunca fica em branco por causa da animação. */
+@media (prefers-reduced-motion:no-preference){
+  .reveal-on [data-reveal],
+  .reveal-on [data-reveal-group]>*{
+    opacity:0;
+    transform:translate3d(0,var(--reveal-y,26px),0);
+    transition:opacity var(--reveal-dur) var(--ease-out),
+               transform var(--reveal-dur) var(--ease-out);
+    transition-delay:var(--reveal-d,0ms);
+  }
+
+  .reveal-on [data-reveal].is-in,
+  .reveal-on [data-reveal-group].is-in>*{
+    opacity:1;transform:translate3d(0,0,0);
+  }
+
+  /* Escalonamento: cada item da grade entra logo depois do anterior. */
+  .reveal-on [data-reveal-group]>*:nth-child(1){--reveal-d:0ms}
+  .reveal-on [data-reveal-group]>*:nth-child(2){--reveal-d:80ms}
+  .reveal-on [data-reveal-group]>*:nth-child(3){--reveal-d:160ms}
+  .reveal-on [data-reveal-group]>*:nth-child(4){--reveal-d:240ms}
+  .reveal-on [data-reveal-group]>*:nth-child(5){--reveal-d:320ms}
+  .reveal-on [data-reveal-group]>*:nth-child(6){--reveal-d:400ms}
+
+  /* Variantes de direção para blocos que não vêm de baixo. */
+  .reveal-on [data-reveal="left"]{transform:translate3d(-34px,0,0)}
+  .reveal-on [data-reveal="right"]{transform:translate3d(34px,0,0)}
+  .reveal-on [data-reveal="fade"]{transform:none}
+
+  /* Entrada do hero, encadeada logo no carregamento. */
+  .reveal-on .hero__copy>*{--reveal-y:20px}
+  .reveal-on .hero__copy>*:nth-child(1){--reveal-d:60ms}
+  .reveal-on .hero__copy>*:nth-child(2){--reveal-d:150ms}
+  .reveal-on .hero__copy>*:nth-child(3){--reveal-d:240ms}
+  .reveal-on .hero__copy>*:nth-child(4){--reveal-d:330ms}
+  .reveal-on .hero__copy>*:nth-child(5){--reveal-d:420ms}
+
+  .reveal-on .hero__visual img{
+    transform:scale(1.06);
+    transition:transform 1.6s var(--ease-out);
+  }
+  .reveal-on .hero__visual.is-in img{transform:scale(1)}
+}
 
 /* ============================== RESPONSIVO ============================== */
 
@@ -585,4 +705,7 @@ ul,ol{padding:0;list-style:none}
   .site-header,.deco,.hero__visual,.future__visual,.contact__bg{display:none!important}
   body{color:#000}
   .section{padding:24px 0}
+  /* O que ainda não tinha sido revelado na tela precisa sair no papel. */
+  [data-reveal],[data-reveal-group]>*{opacity:1!important;transform:none!important}
+  .scard__body::after,.fcard::after,.qcard::after,.acc::after{display:none!important}
 }

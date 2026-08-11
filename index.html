@@ -11,6 +11,24 @@
 <link rel="preload" href="assets/fonts/poppins-400-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
 
+<script>
+/* Liga as animações de entrada antes da primeira pintura, para o conteúdo não
+   piscar visível e sumir. Só liga se o navegador tiver IntersectionObserver e
+   o visitante não tiver pedido menos movimento. Se o main.js não carregar, o
+   estado escondido é desfeito no load — a página nunca fica em branco. */
+(function (d) {
+  var r = d.documentElement;
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  r.classList.add('reveal-on');
+  addEventListener('load', function () {
+    setTimeout(function () {
+      if (!r.hasAttribute('data-reveal-ready')) r.classList.remove('reveal-on');
+    }, 300);
+  });
+})(document);
+</script>
+
 <meta property="og:type" content="website">
 <meta property="og:title" content="MFB Engenharia — Infraestrutura crítica para Data Centers">
 <meta property="og:description" content="Projetos elétricos, adequações, retrofit e manutenção para ambientes que não podem parar.">
@@ -84,7 +102,7 @@
   </div>
 
   <div class="container hero__inner">
-    <div class="hero__copy">
+    <div class="hero__copy" data-reveal-group>
       <p class="eyebrow eyebrow--boxed">
         <span class="dia" aria-hidden="true"></span>Infraestrutura Crítica · Data Centers
       </p>
@@ -117,13 +135,13 @@
 <!-- =============================== SOLUÇÕES =============================== -->
 <section class="section section--solutions" id="solucoes">
   <div class="container">
-    <header class="section__head">
+    <header class="section__head" data-reveal>
       <p class="eyebrow"><span class="dia" aria-hidden="true"></span>Soluções</p>
       <h2 class="h2">Soluções para diferentes <br>demandas de <em>Data Centers</em></h2>
       <p class="section__sub">Cada operação possui necessidades específicas. Por isso, a MFB atua <br>em diferentes frentes dentro da infraestrutura crítica.</p>
     </header>
 
-    <div class="grid grid--4 solutions">
+    <div class="grid grid--4 solutions" data-reveal-group>
       <article class="scard">
         <div class="scard__media"><img src="assets/img/card-01.jpg" alt="Técnico da MFB executando serviço em quadro elétrico" width="640" height="357" loading="lazy"></div>
         <div class="scard__body">
@@ -173,7 +191,7 @@
       </article>
     </div>
 
-    <div class="cta-banner">
+    <div class="cta-banner" data-reveal>
       <p class="cta-banner__text">Descubra como reduzir riscos e aumentar a <br>confiabilidade da sua infraestrutura.</p>
       <a class="btn btn--primary btn--caps" href="#contato">
         Solicitar Avaliação
@@ -187,13 +205,13 @@
 <section class="section section--soft" id="diferenciais">
   <span class="deco deco--diff" aria-hidden="true"></span>
   <div class="container">
-    <header class="section__head">
+    <header class="section__head" data-reveal>
       <p class="eyebrow"><span class="dia" aria-hidden="true"></span>Diferenciais</p>
       <h2 class="h2">Tudo o que sua operação <br>precisa em <em class="is-muted">um único parceiro</em></h2>
       <p class="section__sub">Da análise inicial à execução, a MFB entrega soluções completas para operações <br>que não podem correr riscos.</p>
     </header>
 
-    <div class="grid grid--3 feats">
+    <div class="grid grid--3 feats" data-reveal-group>
       <article class="fcard">
         <span class="dia-tile dia-tile--dark"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></span>
         <div>
@@ -238,7 +256,7 @@
       </article>
     </div>
 
-    <div class="section__foot">
+    <div class="section__foot" data-reveal>
       <a class="btn btn--primary" href="#contato">
         Falar com um Especialista
         <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
@@ -255,7 +273,7 @@
   </div>
 
   <div class="container future__inner">
-    <div class="future__copy">
+    <div class="future__copy" data-reveal-group>
       <p class="eyebrow"><span class="dia" aria-hidden="true"></span>Visão de futuro</p>
       <h2 class="h2">Infraestrutura <br>preparada <em>para o futuro</em></h2>
       <p class="section__sub section__sub--left">
@@ -283,13 +301,13 @@
 <!-- ============================== METODOLOGIA ============================== -->
 <section class="section section--dark" id="processo">
   <div class="container">
-    <header class="section__head">
+    <header class="section__head" data-reveal>
       <p class="eyebrow"><span class="dia" aria-hidden="true"></span>Metodologia</p>
       <h2 class="h2">Como garantimos a <br>confiabilidade <em>da sua operação?</em></h2>
       <p class="section__sub">Da análise inicial à execução, a MFB atua como parceira estratégica para empresas <br>que precisam de segurança, previsibilidade e confiabilidade operacional.</p>
     </header>
 
-    <ol class="grid grid--4 steps">
+    <ol class="grid grid--4 steps" data-reveal-group>
       <li class="step">
         <div class="step__top">
           <span class="dia-tile dia-tile--outline"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg></span>
@@ -324,7 +342,7 @@
       </li>
     </ol>
 
-    <div class="section__foot">
+    <div class="section__foot" data-reveal>
       <a class="btn btn--primary" href="#contato">
         Falar com um Especialista
         <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
@@ -336,12 +354,12 @@
 <!-- ============================== DEPOIMENTOS ============================== -->
 <section class="section section--soft">
   <div class="container">
-    <header class="section__head">
+    <header class="section__head" data-reveal>
       <p class="eyebrow"><span class="dia" aria-hidden="true"></span>Depoimentos</p>
       <h2 class="h2">Empresas que confiam na <br><em class="is-muted">MFB Engenharia</em></h2>
     </header>
 
-    <div class="grid grid--3 quotes">
+    <div class="grid grid--3 quotes" data-reveal-group>
       <figure class="qcard">
         <svg class="qcard__mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-quote"/></svg>
         <blockquote class="qcard__text">“A MFB entregou uma reforma elétrica completa em nosso Data Center sem uma única parada. Confiabilidade absoluta.”</blockquote>
@@ -379,7 +397,7 @@
       </figure>
     </div>
 
-    <div class="section__foot">
+    <div class="section__foot" data-reveal>
       <a class="btn btn--primary" href="#contato">
         Falar com um Especialista
         <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg>
@@ -391,12 +409,12 @@
 <!-- ================================== FAQ ================================== -->
 <section class="section section--faq" id="faq">
   <div class="container">
-    <header class="section__head">
+    <header class="section__head" data-reveal>
       <p class="eyebrow"><span class="dia" aria-hidden="true"></span>FAQ</p>
       <h2 class="h2">Respondemos suas dúvidas <br><em>principais aqui!</em></h2>
     </header>
 
-    <div class="accordion">
+    <div class="accordion" data-reveal-group>
       <div class="acc is-open">
         <button class="acc__q" type="button" aria-expanded="true" aria-controls="acc-1" id="accb-1">
           <span>A MFB atende apenas Data Centers?</span>
@@ -459,7 +477,7 @@
   </div>
 
   <div class="container contact__inner">
-    <div class="contact__copy">
+    <div class="contact__copy" data-reveal="left">
       <p class="eyebrow"><span class="dia" aria-hidden="true"></span>Fale conosco</p>
       <h2 class="h2 h2--lg">Sua operação não <br>pode correr <em>riscos</em> <br><em>desnecessários.</em></h2>
       <p class="contact__lead">
@@ -468,7 +486,7 @@
       </p>
     </div>
 
-    <div class="formcard">
+    <div class="formcard" data-reveal="right">
       <h3 class="formcard__title">Solicitar Avaliação Técnica</h3>
       <p class="formcard__sub">Retornamos em até 24h úteis.</p>
 

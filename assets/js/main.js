@@ -61,6 +61,30 @@
     });
   });
 
+  /* ------------------ Animações de entrada ------------------ */
+  /* O <head> já decidiu se as animações valem para este visitante e marcou
+     .reveal-on. Aqui só observamos os alvos e revelamos uma vez cada. */
+  var docEl = document.documentElement;
+
+  if (docEl.classList.contains('reveal-on')) {
+    docEl.setAttribute('data-reveal-ready', '');
+
+    var revealObserver = new IntersectionObserver(
+      function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-in');
+          obs.unobserve(entry.target);
+        });
+      },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.08 }
+    );
+
+    document
+      .querySelectorAll('[data-reveal], [data-reveal-group], .hero__visual')
+      .forEach(function (el) { revealObserver.observe(el); });
+  }
+
   /* ------------------- Link ativo na navegação ------------------- */
   var navLinks = Array.prototype.slice.call(
     document.querySelectorAll('.header__nav a[href^="#"]')

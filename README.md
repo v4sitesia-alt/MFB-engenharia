@@ -107,11 +107,37 @@ Depoimentos · FAQ · Contato · Rodapé
 
 ---
 
+## Movimento e interações
+
+**Entrada dos elementos.** Um `IntersectionObserver` marca `.is-in` quando o bloco
+entra na viewport; a transição é de opacidade e deslocamento vertical, uma única
+vez por elemento. Blocos marcados com `data-reveal-group` escalonam os filhos em
+80 ms cada, o que dá o efeito de cascata nas grades.
+
+O estado inicial escondido é aplicado apenas quando um script no `<head>` adiciona
+`.reveal-on` ao `<html>`, e ele só faz isso se houver `IntersectionObserver` e o
+visitante não tiver pedido menos movimento. Sem JavaScript, em navegador antigo ou
+com `prefers-reduced-motion: reduce`, nada é escondido e a página aparece inteira.
+Há ainda uma rede de segurança: se o `main.js` não carregar, o `load` desfaz o
+estado escondido — a página nunca fica em branco por causa da animação.
+
+**Borda com gradiente rotativo.** No hover de `.scard`, `.fcard`, `.qcard` e `.acc`,
+um `conic-gradient` gira ao redor da caixa. O ângulo é registrado via `@property`
+como `<angle>`, que é o que permite interpolá-lo; onde `@property` não existe o
+gradiente aparece parado, o que continua sendo uma borda válida.
+
+**Ícone do FAQ.** O losango gira 180° ao abrir e o `+` cruza com o `−` girando 90°
+em sentidos opostos. Os dois ícones dividem a mesma célula do grid porque
+`display:none` não é animável.
+
+---
+
 ## Verificação
 
 A página foi conferida contra o PDF seção a seção. Altura total renderizada em
-1920 px: **7878 px** contra **7879 px** do original; nenhuma seção diverge mais de
-4 px do seu topo ou altura de referência.
+1920 px: **7902 px** contra **7879 px** do original. A diferença de 23 px vem da
+sobreposição pedida nos cards de Soluções (ver abaixo); nenhuma outra seção
+diverge mais de 4 px do seu topo ou altura de referência.
 
 Interações cobertas por teste automatizado (22 verificações, todas passando):
 acordeão do FAQ, menu mobile, rolagem com compensação do header, validação do
@@ -169,9 +195,17 @@ e preview por pull request.
 4. **Depoimentos** — os três textos são genéricos ("Diretor de TI", "Empresa de
    Tecnologia"), como no layout. Substituir por depoimentos reais e autorizados.
 
-### Ajuste deliberado em relação ao layout
+### Ajustes deliberados em relação ao layout
 
-Na seção "Visão de futuro" o texto começa em x=369 no PDF, enquanto todas as demais
-seções começam em x=344. Trata-se de um desalinhamento de 25 px do arquivo original;
-a coluna foi normalizada para 344 px, mantendo o grid consistente. Para reproduzir
-o desalinhamento, basta acrescentar `padding-left: 25px` em `.future__copy`.
+**Coluna da "Visão de futuro".** Nessa seção o texto começa em x=369 no PDF,
+enquanto todas as demais seções começam em x=344. Trata-se de um desalinhamento de
+25 px do arquivo original; a coluna foi normalizada para 344 px, mantendo o grid
+consistente. Para reproduzir o desalinhamento, basta acrescentar
+`padding-left: 25px` em `.future__copy`.
+
+**Cards de Soluções.** No PDF a imagem e a caixa de texto são dois blocos
+encostados. A pedido, a caixa passou a invadir 38 px da base da imagem, com 12 px
+de recuo lateral, para os dois lerem como uma peça só. A imagem foi de 162 px para
+200 px de altura justamente para que a área visível continue sendo os 162 px do
+layout — o que muda é só a sobra coberta. O recuo lateral estreita a caixa e faz
+alguns títulos quebrarem em duas linhas, daí os 23 px a mais na altura da página.
