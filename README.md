@@ -1,6 +1,6 @@
 # MFB Engenharia — Landing Page
 
-**No ar:** https://mfb-engenharia.vercel.app
+**No ar:** https://pages.mfbengenharia.com.br
 
 Reprodução fiel da landing page da MFB Engenharia a partir do layout original
 (artboard de 1920 px exportado em PDF).
@@ -134,7 +134,7 @@ envio. Payload:
   "empresa": "Empresa Alfa",
   "mensagem": "Data center com 40 racks.",
   "site": "",
-  "origem": "https://mfb-engenharia.vercel.app/"
+  "origem": "https://pages.mfbengenharia.com.br/"
 }
 ```
 
@@ -155,17 +155,20 @@ escolha é automática, em `endpoint()`:
 | `localhost` / `127.0.0.1` | teste |
 
 O `?wh=test` permite exercitar o workflow contra o site no ar sem republicar nada:
-abra `https://mfb-engenharia.vercel.app/?wh=test`, clique em "Execute workflow" no
+abra `https://pages.mfbengenharia.com.br/?wh=test`, clique em "Execute workflow" no
 n8n e envie o formulário.
 
 ### CORS
 
 O `POST` sai do navegador para outro domínio, então o nó Webhook precisa ter
 **Allowed Origins (CORS)** preenchido — em Options do nó. Sem isso o navegador
-bloqueia a chamada antes de ela sair. Valor sugerido:
+bloqueia a chamada antes de ela sair.
+
+O CORS é validado contra a origem de onde a página foi aberta, não contra o
+canônico. Como o site responde nos dois endereços, ambos precisam constar:
 
 ```
-https://mfb-engenharia.vercel.app
+https://pages.mfbengenharia.com.br,https://mfb-engenharia.vercel.app
 ```
 
 Como o `Content-Type` é `application/json`, o navegador manda um `OPTIONS` de

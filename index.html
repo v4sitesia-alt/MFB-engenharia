@@ -32,10 +32,17 @@
 })(document);
 </script>
 
+<!-- O site responde em mais de um endereço (domínio próprio e o .vercel.app);
+     o canônico evita que os buscadores tratem os dois como páginas duplicadas. -->
+<link rel="canonical" href="https://pages.mfbengenharia.com.br/">
+
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://pages.mfbengenharia.com.br/">
 <meta property="og:title" content="MFB Engenharia — Infraestrutura crítica para Data Centers">
 <meta property="og:description" content="Projetos elétricos, adequações, retrofit e manutenção para ambientes que não podem parar.">
-<meta property="og:image" content="assets/img/hero.jpg">
+<!-- Absoluta de propósito: os leitores de preview (WhatsApp, LinkedIn) não
+     resolvem caminho relativo, e com ele a imagem não aparecia. -->
+<meta property="og:image" content="https://pages.mfbengenharia.com.br/assets/img/hero.jpg">
 <meta property="og:locale" content="pt_BR">
 </head>
 <body>
