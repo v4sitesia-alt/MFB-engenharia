@@ -118,7 +118,17 @@ O envio tem duas pernas: registrar o lead por e-mail em
 `comercial@mfbengenharia.com.br` e levar a pessoa para o WhatsApp comercial
 (+55 11 4858-4921) com a conversa já iniciada.
 
-**WhatsApp.** Ao enviar, a saudação é montada com os dados recém-digitados e
+**Botão flutuante.** Fixo no canto inferior direito, leva ao mesmo número com uma
+saudação curta, sem os dados do formulário: "Olá! Vim pelo site da MFB Engenharia e
+gostaria de falar sobre a infraestrutura da minha operação." A URL vai inteira no
+`href`, então ele funciona sem JavaScript — em troca, o número aparece em dois
+lugares (`index.html` e `WHATSAPP_BASE` no `main.js`) e trocar um exige trocar o outro.
+
+O halo verde que pulsa é a segunda camada do `box-shadow`, animada. A primeira, a
+sombra de apoio, fica declarada no próprio `.wa-float` e não só no keyframe — assim
+quem pediu menos movimento perde a pulsação mas não fica sem sombra alguma.
+
+**WhatsApp (formulário).** Ao enviar, a saudação é montada com os dados recém-digitados e
 codificada num link `wa.me`, de modo que a equipe recebe nome, empresa, e-mail e o
 contexto da operação sem precisar perguntar de novo. O redirecionamento é em
 mesma aba, após 1,4 s de confirmação na tela; se algo bloquear a navegação, um link
