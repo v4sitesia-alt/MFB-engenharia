@@ -198,6 +198,24 @@ ele preenchido deve ser descartado por quem receber o `POST`.
 
 ---
 
+## Google Tag Manager
+
+Container `GTM-KBH8DSXN`. O trecho principal fica no topo do `<head>`, logo após as
+metatags essenciais, e o `<noscript>` é o primeiro elemento do `<body>`.
+
+**O gatilho nativo de Form Submission não vai disparar neste formulário.** Ele
+depende do evento `submit` seguir seu curso, e aqui o envio é interceptado com
+`preventDefault()` para fazer o `POST` ao n8n e depois redirecionar ao WhatsApp.
+Para medir conversão é preciso um `dataLayer.push` no ponto de sucesso do envio,
+dentro de `assets/js/main.js` — ainda não incluído, porque o nome do evento deve
+seguir a taxonomia usada no container.
+
+O mesmo vale para os cliques que levam ao WhatsApp: o botão flutuante é um link
+comum e o gatilho de clique pega sem problema, mas o redirecionamento do formulário
+acontece via `window.location`, que não gera clique nenhum.
+
+---
+
 ## Movimento e interações
 
 **Entrada dos elementos.** Um `IntersectionObserver` marca `.is-in` quando o bloco
