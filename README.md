@@ -198,6 +198,32 @@ ele preenchido deve ser descartado por quem receber o `POST`.
 
 ---
 
+## Política de privacidade
+
+Abre num `<dialog>` nativo pelo link do rodapé. O nativo entrega de graça a
+armadilha de foco, o fechamento por `Esc` e o fundo escurecido; há um fallback em
+JavaScript para navegadores sem suporte.
+
+O `id` serve de âncora, então `pages.mfbengenharia.com.br/#politica-de-privacidade`
+abre o documento direto — um endereço compartilhável, útil se alguma plataforma de
+anúncios pedir a URL da política.
+
+### Ainda falta preencher
+
+Três campos ficaram como `[PLACEHOLDER]`, destacados em amarelo no próprio texto
+para não passarem batido: **CNPJ**, **endereço** e **e-mail de privacidade**. Não
+foram inventados de propósito — são dados cadastrais de um documento jurídico. O
+nome da empresa e o telefone já estão preenchidos.
+
+### Detalhe do `<dialog>`
+
+O `display` do `.policy` fica preso a `[open]`. Declarado solto, ele venceria o
+`display:none` que o navegador aplica ao `<dialog>` fechado — estilos de autor
+sempre vencem os do agente de usuário —, e o modal entraria no fluxo da página,
+somando ~750 px de espaço vazio no fim do documento e deslocando a rolagem ao abrir.
+
+---
+
 ## Google Tag Manager
 
 Container `GTM-NG8VH6K8`. O trecho principal fica no topo do `<head>`, logo após as

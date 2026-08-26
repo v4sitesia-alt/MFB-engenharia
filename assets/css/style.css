@@ -621,6 +621,85 @@ ul,ol{padding:0;list-style:none}
   .reveal-on .hero__visual.is-in img{transform:scale(1)}
 }
 
+/* ======================= POLÍTICA DE PRIVACIDADE ======================== */
+.footer__policy{
+  color:#BFBFBF;text-decoration:underline;text-underline-offset:3px;
+  font-size:12px;transition:color .2s ease;
+}
+.footer__policy:hover{color:var(--orange)}
+
+/* <dialog> nativo: o navegador cuida da armadilha de foco, do Esc e do fundo. */
+.policy{
+  width:min(760px,calc(100vw - 32px));max-height:min(84vh,900px);
+  padding:0;border:0;border-radius:var(--radius);
+  background:var(--white);color:var(--text);
+  box-shadow:0 24px 70px rgba(0,0,0,.35);
+  overflow:hidden;
+}
+.policy::backdrop{background:rgba(8,8,8,.62)}
+/* O display fica preso ao [open]. Declarado solto, ele venceria o display:none
+   que o navegador dá ao <dialog> fechado (autor sempre vence UA) e o modal
+   entraria no fluxo da página, somando altura vazia no fim do documento. */
+.policy[open]{
+  display:flex;flex-direction:column;
+  animation:policy-in .32s var(--ease-out);
+}
+@keyframes policy-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.policy__bar{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex:none;
+  padding:22px 26px;border-bottom:1px solid var(--line);background:var(--white);
+}
+.policy__title{
+  margin:0;font-size:22px;line-height:28px;font-weight:700;
+  letter-spacing:var(--tracking);color:var(--ink);
+}
+.policy__close{
+  display:grid;place-items:center;flex:none;width:40px;height:40px;
+  border:1px solid var(--line);border-radius:50%;background:none;cursor:pointer;
+  color:var(--ink);transition:background .2s ease,border-color .2s ease,transform .2s ease;
+}
+.policy__close svg{
+  width:18px;height:18px;fill:none;stroke:currentColor;
+  stroke-width:2;stroke-linecap:round;
+}
+.policy__close:hover{background:var(--orange);border-color:var(--orange);color:#fff;transform:rotate(90deg)}
+
+.policy__body{
+  overflow-y:auto;padding:24px 26px 30px;
+  font-size:15px;line-height:25px;
+  overscroll-behavior:contain;   /* a rolagem não vaza para a página atrás */
+}
+.policy__body:focus-visible{outline:2px solid var(--orange);outline-offset:-4px}
+.policy__body h3{
+  margin:28px 0 10px;font-size:16px;line-height:24px;font-weight:700;
+  letter-spacing:var(--tracking);color:var(--ink);
+}
+.policy__body h3:first-of-type{margin-top:22px}
+.policy__body p{margin:0 0 12px}
+.policy__body ul{margin:0 0 14px;padding-left:20px;list-style:disc}
+.policy__body li{margin-bottom:5px}
+.policy__body a{color:var(--orange);text-decoration:underline;text-underline-offset:2px}
+.policy__date{font-size:13px;color:var(--muted)}
+.policy__contato{list-style:none;padding-left:0}
+.policy__assinatura{
+  margin-top:26px;padding-top:18px;border-top:1px solid var(--line);
+  font-size:14px;color:var(--muted);
+}
+/* Pendências de preenchimento: impossíveis de passar batido na revisão. */
+.policy__todo{
+  padding:1px 7px;border-radius:4px;
+  background:#FFF3CD;color:#7A5B00;font-weight:600;white-space:nowrap;
+}
+
+/* Sem suporte a <dialog>, o JS marca .is-fallback e o modal vira sobreposição. */
+.policy.is-fallback[open]{
+  position:fixed;inset:auto;top:50%;left:50%;transform:translate(-50%,-50%);
+  z-index:200;
+}
+.policy-scrim{position:fixed;inset:0;z-index:199;background:rgba(8,8,8,.62)}
+body.policy-aberta{overflow:hidden}
+
 /* ========================= BOTÃO FLUTUANTE (WHATSAPP) ==================== */
 .wa-float{
   position:fixed;right:24px;bottom:24px;z-index:95;
@@ -746,6 +825,11 @@ ul,ol{padding:0;list-style:none}
 
   .wa-float{right:16px;bottom:16px;width:54px;height:54px}
   .wa-float__ico{width:29px;height:29px}
+
+  .policy{max-height:92vh;border-radius:12px}
+  .policy__bar{padding:18px 20px}
+  .policy__title{font-size:19px;line-height:25px}
+  .policy__body{padding:20px 20px 26px;font-size:14px;line-height:24px}
 }
 
 /* --- Preferência por menos movimento --- */
