@@ -313,10 +313,9 @@ e preview por pull request.
    outras três aparecem fechadas, sem texto. As respostas de "A MFB realiza apenas
    execução?", "Vocês atendem projetos de expansão?" e "Como funciona a avaliação
    técnica?" foram redigidas no mesmo tom da marca e **precisam de revisão**.
-2. **Dados de contato** — telefone `+55 (11) 0000-0000` é o placeholder do próprio
-   layout. O e-mail `contato@mfbengenharia.com.br` veio do PDF.
-3. **Envio por e-mail** — falta escolher o serviço que entrega em
-   `comercial@mfbengenharia.com.br`. Ver "Formulário de contato" abaixo.
+2. **E-mail do rodapé** — o rodapé exibe `contato@mfbengenharia.com.br`, que veio do
+   PDF, enquanto o formulário registra os leads em `comercial@mfbengenharia.com.br`.
+   Os dois endereços podem conviver de propósito; se não for o caso, unificar.
 4. **Depoimentos** — os três textos são genéricos ("Diretor de TI", "Empresa de
    Tecnologia"), como no layout. Substituir por depoimentos reais e autorizados.
 
