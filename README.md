@@ -208,12 +208,17 @@ O `id` serve de âncora, então `pages.mfbengenharia.com.br/#politica-de-privaci
 abre o documento direto — um endereço compartilhável, útil se alguma plataforma de
 anúncios pedir a URL da política.
 
-### Ainda falta preencher
+### Dados cadastrais
 
-Três campos ficaram como `[PLACEHOLDER]`, destacados em amarelo no próprio texto
-para não passarem batido: **CNPJ**, **endereço** e **e-mail de privacidade**. Não
-foram inventados de propósito — são dados cadastrais de um documento jurídico. O
-nome da empresa e o telefone já estão preenchidos.
+Preenchida com **MFB Engenharia Ltda**, CNPJ 24.949.310/0001-15, Rua Jurubatuba,
+1350, Sala 404, São Bernardo do Campo – SP, CEP 09725-000.
+
+Duas escolhas que valem registro. O **bairro ficou fora do endereço**: o cadastro
+recebido trazia "Centro (ou Vila Lusitânia)", e publicar a dúvida — ou chutar entre
+as duas — não cabe num documento jurídico; o CEP já identifica a localidade. E o
+**e-mail de privacidade** usa `contato@mfbengenharia.com.br`, o endereço público que
+já consta no rodapé, por falta de um canal dedicado ao encarregado de dados; trocar
+por um específico é uma linha.
 
 ### Detalhe do `<dialog>`
 

@@ -686,12 +686,6 @@ ul,ol{padding:0;list-style:none}
   margin-top:26px;padding-top:18px;border-top:1px solid var(--line);
   font-size:14px;color:var(--muted);
 }
-/* Pendências de preenchimento: impossíveis de passar batido na revisão. */
-.policy__todo{
-  padding:1px 7px;border-radius:4px;
-  background:#FFF3CD;color:#7A5B00;font-weight:600;white-space:nowrap;
-}
-
 /* Sem suporte a <dialog>, o JS marca .is-fallback e o modal vira sobreposição. */
 .policy.is-fallback[open]{
   position:fixed;inset:auto;top:50%;left:50%;transform:translate(-50%,-50%);
