@@ -118,16 +118,6 @@ O envio tem duas pernas: registrar o lead por e-mail em
 `comercial@mfbengenharia.com.br` e levar a pessoa para o WhatsApp comercial
 (+55 11 4858-4921) com a conversa já iniciada.
 
-**Botão flutuante.** Fixo no canto inferior direito, leva ao mesmo número com uma
-saudação curta, sem os dados do formulário: "Olá! Vim pelo site da MFB Engenharia e
-gostaria de falar sobre a infraestrutura da minha operação." A URL vai inteira no
-`href`, então ele funciona sem JavaScript — em troca, o número aparece em dois
-lugares (`index.html` e `WHATSAPP_BASE` no `main.js`) e trocar um exige trocar o outro.
-
-O halo verde que pulsa é a segunda camada do `box-shadow`, animada. A primeira, a
-sombra de apoio, fica declarada no próprio `.wa-float` e não só no keyframe — assim
-quem pediu menos movimento perde a pulsação mas não fica sem sombra alguma.
-
 **WhatsApp (formulário).** Ao enviar, a saudação é montada com os dados recém-digitados e
 codificada num link `wa.me`, de modo que a equipe recebe nome, empresa, e-mail e o
 contexto da operação sem precisar perguntar de novo. O redirecionamento é em
@@ -226,6 +216,33 @@ O `display` do `.policy` fica preso a `[open]`. Declarado solto, ele venceria o
 `display:none` que o navegador aplica ao `<dialog>` fechado — estilos de autor
 sempre vencem os do agente de usuário —, e o modal entraria no fluxo da página,
 somando ~750 px de espaço vazio no fim do documento e deslocando a rolagem ao abrir.
+
+---
+
+## Chatbot LeadStaker
+
+O snippet fica no fim do `<head>`. Ele busca a configuração em
+`api.leadstaker.com/chats` e injeta o script devolvido.
+
+A configuração vem do servidor, não do código, e declara **dois** chats:
+
+| Chat | Como aparece | Gatilho |
+|---|---|---|
+| `floater` | balão fixo no canto inferior direito | sempre visível |
+| `modal` | janela sobre a página | seletor `.cta-leadstaker` |
+
+Por isso os 7 CTAs que levam ao contato receberam a classe `cta-leadstaker`. Foi
+verificado no payload da API: o campo `toggles` traz `[".cta-leadstaker"]` — **uma
+classe, não um id**. O `id="leadstaker"` existe em um único botão (o CTA do hero),
+porque `id` precisa ser único no documento e repeti-lo quebraria
+`getElementById` para todos menos o primeiro.
+
+O botão de enviar do formulário ficou **de fora** de propósito: ele registra o lead
+no n8n e encaminha ao WhatsApp, não abre chat.
+
+Os CTAs mantêm `href="#contato"` e a rolagem suave. Como o chat abre em modal,
+cobrindo a página, a rolagem por trás não aparece — e se o LeadStaker não carregar,
+o botão continua levando ao formulário em vez de não fazer nada.
 
 ---
 

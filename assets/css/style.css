@@ -694,28 +694,6 @@ ul,ol{padding:0;list-style:none}
 .policy-scrim{position:fixed;inset:0;z-index:199;background:rgba(8,8,8,.62)}
 body.policy-aberta{overflow:hidden}
 
-/* ========================= BOTÃO FLUTUANTE (WHATSAPP) ==================== */
-.wa-float{
-  position:fixed;right:24px;bottom:24px;z-index:95;
-  display:grid;place-items:center;width:60px;height:60px;
-  border-radius:50%;background:#25D366;color:#fff;
-  transition:transform .25s var(--ease-out),background .25s ease;
-  /* A sombra de apoio fica declarada aqui, não só no keyframe: quem pediu menos
-     movimento perde a animação e ficaria sem sombra nenhuma. O halo que pulsa é
-     a segunda camada, adicionada pela animação. */
-  box-shadow:0 8px 24px rgba(0,0,0,.22);
-  animation:wa-pulse 2.6s ease-out infinite;
-}
-.wa-float__ico{width:32px;height:32px;fill:currentColor;stroke:none}
-.wa-float:hover{background:#1FB855;transform:scale(1.07)}
-.wa-float:active{transform:scale(1)}
-
-@keyframes wa-pulse{
-  0%  {box-shadow:0 8px 24px rgba(0,0,0,.22), 0 0 0 0    rgba(37,211,102,.55)}
-  70% {box-shadow:0 8px 24px rgba(0,0,0,.22), 0 0 0 20px rgba(37,211,102,0)}
-  100%{box-shadow:0 8px 24px rgba(0,0,0,.22), 0 0 0 0    rgba(37,211,102,0)}
-}
-
 /* ============================== RESPONSIVO ============================== */
 
 /* --- Notebooks / telas médias --- */
@@ -817,8 +795,6 @@ body.policy-aberta{overflow:hidden}
   .site-footer{padding:56px 0 32px}
   .footer__bar{margin-top:36px;flex-direction:column;align-items:flex-start;gap:12px}
 
-  .wa-float{right:16px;bottom:16px;width:54px;height:54px}
-  .wa-float__ico{width:29px;height:29px}
 
   .policy{max-height:92vh;border-radius:12px}
   .policy__bar{padding:18px 20px}
@@ -837,7 +813,7 @@ body.policy-aberta{overflow:hidden}
 
 /* --- Impressão --- */
 @media print{
-  .site-header,.deco,.hero__visual,.future__visual,.contact__bg,.wa-float{display:none!important}
+  .site-header,.deco,.hero__visual,.future__visual,.contact__bg{display:none!important}
   body{color:#000}
   .section{padding:24px 0}
   /* O que ainda não tinha sido revelado na tela precisa sair no papel. */
