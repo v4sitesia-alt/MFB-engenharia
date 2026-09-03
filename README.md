@@ -160,20 +160,14 @@ n8n e envie o formulário.
 
 ### CORS
 
-O `POST` sai do navegador para outro domínio, então o nó Webhook precisa ter
-**Allowed Origins (CORS)** preenchido — em Options do nó. Sem isso o navegador
-bloqueia a chamada antes de ela sair.
+O `POST` sai do navegador para outro domínio, então o nó Webhook precisa responder
+ao preflight com CORS — sem isso o navegador bloqueia a chamada antes de ela sair.
+Já está configurado: um `OPTIONS` para o webhook de produção devolve `204` com
+`Access-Control-Allow-Origin`, `-Methods: OPTIONS, POST` e `-Headers: content-type`.
 
-O CORS é validado contra a origem de onde a página foi aberta, não contra o
-canônico. Como o site responde nos dois endereços, ambos precisam constar:
-
-```
-https://pages.mfbengenharia.com.br,https://mfb-engenharia.vercel.app
-```
-
-Como o `Content-Type` é `application/json`, o navegador manda um `OPTIONS` de
-preflight antes do `POST`; o n8n responde a ele sozinho quando o CORS está
-configurado.
+Vale saber que o nó **ecoa qualquer origem** que peça — testado com um domínio
+aleatório, que também foi liberado. Na prática o CORS ali não restringe nada; ele
+só destrava a chamada do navegador. A proteção real precisa estar no workflow.
 
 ### Sobre o endereço ficar visível
 

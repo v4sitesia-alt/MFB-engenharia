@@ -13,8 +13,8 @@
   /* Webhooks do n8n que recebem o lead e disparam o e-mail para
      comercial@mfbengenharia.com.br. */
   var WEBHOOK = {
-    producao: 'https://webhook.v4mundim.com/webhook/8ed70d33-9607-4296-aaa5-81594508128a',
-    teste: 'https://n8n.v4mundim.com/webhook-test/8ed70d33-9607-4296-aaa5-81594508128a'
+    producao: 'https://webhook.v4mundim.com/webhook/mfbengenharia',
+    teste: 'https://n8n.v4mundim.com/webhook-test/mfbengenharia'
   };
 
   /* O webhook de teste só responde depois de clicar em "Execute workflow" no n8n
